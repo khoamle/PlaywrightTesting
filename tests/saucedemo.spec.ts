@@ -10,16 +10,29 @@ test.describe("Sauce Demo Home Page", () => {
     await sauceDemoPage.loginToAccount(accountLogin)
     await expect(sauceDemoPage.productsHeader).toBeVisible();
   }
-  test('Add backpack to cart and checkout', async({page}) => {
+  test('Add one item to cart and checkout', async({page}) => {
     const sauceDemoPage = new SauceDemoPage(page);
     await sauceDemoHomeSetup(page);
-    await sauceDemoPage.addBackpackToCart();
+    await sauceDemoPage.addItemToCart(sauceDemoPage.backpack);
 
-    await expect(sauceDemoPage.shoppingCart).toHaveText('1');
-    await expect(sauceDemoPage.itemBackpack).toBeVisible();
+    await expect(sauceDemoPage.shoppingCart).toHaveText("1");
+    await sauceDemoPage.shoppingCart.click();
 
     await sauceDemoPage.clickCheckout();
     await sauceDemoPage.finishCheckout();
+    await sauceDemoPage.logout();
+  })
 
+  test('Add two items to cart and checkout', async({page}) => {
+    const sauceDemoPage = new SauceDemoPage(page);
+    await sauceDemoHomeSetup(page);
+    await sauceDemoPage.addItemToCart(sauceDemoPage.backpack);
+    await sauceDemoPage.addItemToCart(sauceDemoPage.bikelight);
+    await expect(sauceDemoPage.shoppingCart).toHaveText("2");
+
+    await sauceDemoPage.shoppingCart.click();
+    await sauceDemoPage.clickCheckout();
+    await sauceDemoPage.finishCheckout();
+    await sauceDemoPage.logout();
   })
 })

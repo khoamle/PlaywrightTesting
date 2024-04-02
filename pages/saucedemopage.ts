@@ -46,10 +46,10 @@ export class SauceDemoPage {
     this.logoutBtn = page.locator('[data-test="logout-sidebar-link"]')
   }
 
-  async addItemToCart(item: string){
-    const selectItem = this.allItem.filter({hasText: `${item}`});
-    const itemAddTocart = selectItem.getByRole("button", {name: "Add to Cart"})
-    await itemAddTocart.click()
+  async updateItemToCart(item: string, option: "Add to Cart" | "Remove"){
+    const selectItem = this.allItem.filter({hasText: item});
+    const selectionButton = selectItem.getByRole("button", {name: option})
+    await selectionButton.click()
   }
 
   async clickCheckout() {

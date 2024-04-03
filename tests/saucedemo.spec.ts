@@ -1,4 +1,4 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect, Page, selectors } from '@playwright/test';
 import { SauceDemoPage } from '../pages/saucedemopage';
 import { testData } from './testData';
 
@@ -26,6 +26,15 @@ test.describe("Sauce Demo Home Page", () => {
     await sauceDemoPage.updateItemToCart(sauceDemoPage.backpack, "Add to Cart");
     await expect(sauceDemoPage.shoppingCart).toHaveText("1");
     await sauceDemoPage.updateItemToCart(sauceDemoPage.backpack, "Remove");
+    await expect(sauceDemoPage.shoppingCart).toBeEmpty();
+  })
+
+  test('Add all items to cart and remove all items', async({page}) => {
+    const sauceDemoPage = new SauceDemoPage(page);
+    await sauceDemoHomeSetup(page);
+    await sauceDemoPage.updateAllItemsToCart(page, "Add to Cart")
+    await expect(sauceDemoPage.shoppingCart).toHaveText("6");
+    await sauceDemoPage.updateAllItemsToCart(page, "Remove")
     await expect(sauceDemoPage.shoppingCart).toBeEmpty();
   })
 

@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { IUser } from '../tests/loginData';
 
 export class SauceDemoPage {
@@ -12,7 +12,7 @@ export class SauceDemoPage {
   readonly shoppingCart: Locator;
   readonly shoppingCartBadge: Locator;
   readonly redShirt: Locator;
-  readonly allItem: Locator;
+  readonly allItems: Locator;
   readonly itemBackpack: Locator;
   readonly tshirt: Locator;
   readonly checkoutBtn: Locator;
@@ -34,7 +34,7 @@ export class SauceDemoPage {
     this.shoppingCartBadge = page.locator('[data-test="shopping-cart-badge"]');
     this.redShirt = page.locator('[data-test="add-to-cart-test\\.allthethings\\(\\)-t-shirt-\\(red\\)"]');
     this.itemBackpack = page.locator('#item_4_title_link');
-    this.allItem = page.locator("[data-test='inventory-item']")
+    this.allItems = page.locator("[data-test='inventory-item']")
     this.tshirt = page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]');
     this.checkoutBtn = page.locator('[data-test="checkout"]');
     this.firstName = page.locator('[data-test="firstName"]');
@@ -47,9 +47,23 @@ export class SauceDemoPage {
   }
 
   async updateItemToCart(item: string, option: "Add to Cart" | "Remove"){
-    const selectItem = this.allItem.filter({hasText: item});
+    const selectItem = this.allItems.filter({hasText: item});
     const selectionButton = selectItem.getByRole("button", {name: option})
     await selectionButton.click()
+  }
+
+  async updateAllItemsToCart(page: Page, option: "Add to Cart" | "Remove" ) {
+    const rows = await this.allItems.all();
+    for (let index = 0; index < rows.length; index++) {
+      await page.getByRole("button", {name: option}).first().click()
+    }
+  }
+
+  async removeAllItemsFromCart(page: Page) {
+    const rows = await this.allItems.all();
+    for (let index = 0; index < rows.length; index++) {
+      await page.getByRole("button", {name: "Remove"}).first().click()
+    }
   }
 
   async clickCheckout() {

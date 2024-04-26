@@ -6,7 +6,6 @@ import { YourCartPage } from '../pages/yourCart.page';
 import { CheckoutInfo } from '../pages/checkoutInfo.page';
 import { CheckoutOverview } from '../pages/checkoutOverview.page';
 import { LogoutPage } from '../pages/logout.page';
-import { log } from 'console';
 
 test.describe("Sauce Demo Home Page", () => {
   async function LoginSetup(page: Page) {

@@ -1,56 +1,68 @@
 import { test, expect, Page } from '@playwright/test';
-import { SauceDemoPage } from '../pages/saucedemopage';
 import { testData } from './testData';
+import { LoginPage } from '../pages/login.page';
+import { InventoryPage } from '../pages/inventory.page';
+import { YourCartPage } from '../pages/yourCart.page';
+import { CheckoutInfo } from '../pages/checkoutInfo.page';
+import { CheckoutOverview } from '../pages/checkoutOverview.page';
+import { LogoutPage } from '../pages/logout.page';
+import { log } from 'console';
 
 test.describe("Sauce Demo Home Page", () => {
-  async function sauceDemoHomeSetup(page: Page) {
-    const sauceDemoPage = new SauceDemoPage(page);
+  async function LoginSetup(page: Page) {
+    const loginPage = new LoginPage(page);
     const { accountLogin } = testData.standardUser;
-    
-    await sauceDemoPage.loginToAccount(accountLogin)
-    await expect(sauceDemoPage.productsHeader).toBeVisible();
+    await loginPage.loginToAccount(accountLogin)
+    const inventoryPage = new InventoryPage(page);
+    await expect(inventoryPage.productsHeader).toBeVisible();
   }
-  test('Add one item to cart and checkout', async({page}) => {
-    const sauceDemoPage = new SauceDemoPage(page);
-    await sauceDemoHomeSetup(page);
-    await sauceDemoPage.updateItemToCart(sauceDemoPage.backpack, "Add to Cart");
-    await expect(sauceDemoPage.shoppingCart).toHaveText("1");
-    await sauceDemoPage.shoppingCart.click();
-    await sauceDemoPage.clickCheckout();
-    await sauceDemoPage.finishCheckout();
+  test('User can add one item to shopping cart', async({page}) => {
+    await LoginSetup(page);
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.addItemToCart(inventoryPage.backpack);
+    await expect(inventoryPage.shoppingCart).toHaveText("1");
   })
 
-  test('Add one item to cart and remove', async({page}) => {
-    const sauceDemoPage = new SauceDemoPage(page);
-    await sauceDemoHomeSetup(page);
-    await sauceDemoPage.updateItemToCart(sauceDemoPage.backpack, "Add to Cart");
-    await expect(sauceDemoPage.shoppingCart).toHaveText("1");
-    await sauceDemoPage.updateItemToCart(sauceDemoPage.backpack, "Remove");
-    await expect(sauceDemoPage.shoppingCart).toBeEmpty();
+  test('User can add and remove one item from shopping cart', async({page}) => {
+    await LoginSetup(page);
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.addItemToCart(inventoryPage.backpack);
+    await inventoryPage.removeItemFromCart(inventoryPage.backpack);
+    await expect(inventoryPage.shoppingCart).toBeEmpty();
   })
 
-  test('Add all items to cart and remove all items', async({page}) => {
-    const sauceDemoPage = new SauceDemoPage(page);
-    await sauceDemoHomeSetup(page);
-    await sauceDemoPage.updateAllItemsToCart(page, "Add to Cart")
-    await expect(sauceDemoPage.shoppingCart).toHaveText("6");
-    await sauceDemoPage.updateAllItemsToCart(page, "Remove")
-    await expect(sauceDemoPage.shoppingCart).toBeEmpty();
+  test('User can add all items to cart', async({page}) => {
+    await LoginSetup(page);
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.addAllItemsToCart(page)
+    await expect(inventoryPage.shoppingCart).toHaveText("6");
   })
 
-  test('Add two items to cart and checkout', async({page}) => {
-    const sauceDemoPage = new SauceDemoPage(page);
-    await sauceDemoHomeSetup(page);
-    await sauceDemoPage.updateItemToCart(sauceDemoPage.backpack, "Add to Cart");
-    await sauceDemoPage.updateItemToCart(sauceDemoPage.bikelight, "Add to Cart");
-    await expect(sauceDemoPage.shoppingCart).toHaveText("2");
-    await sauceDemoPage.shoppingCart.click();
-    await sauceDemoPage.clickCheckout();
-    await sauceDemoPage.finishCheckout();
+  test('User can add all items and remove all items from cart', async({page}) => {
+    await LoginSetup(page);
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.addAllItemsToCart(page)
+    await inventoryPage.removeAllItemsFromCart(page)
+    await expect(inventoryPage.shoppingCart).toBeEmpty();
+  })
+
+  test('User can add two items and checkout', async({page}) => {
+    await LoginSetup(page);
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.addItemToCart(inventoryPage.backpack);
+    await inventoryPage.addItemToCart(inventoryPage.bikelight);
+    await inventoryPage.shoppingCart.click();
+    const yourCartPage = new YourCartPage(page);
+    await yourCartPage.checkoutBtn.click();
+    const checkoutInfo = new CheckoutInfo(page);
+    await checkoutInfo.fillCustomerDetails("Sam", "Smith", "12345")
+    const checkoutOverview = new CheckoutOverview(page);
+    await checkoutOverview.finishBtn.click();
   })
 })
 
 test.afterEach(async ({ page }) => {
-  const sauceDemoPage = new SauceDemoPage(page);
-  await sauceDemoPage.logout()
+  const logoutPage = new LogoutPage(page);
+  await logoutPage.logout()
 });
+

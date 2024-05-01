@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { selectors, type Locator, type Page } from '@playwright/test';
 
 export class LogoutPage {
   readonly page: Page;
@@ -6,9 +6,10 @@ export class LogoutPage {
   readonly logoutBtn: Locator;
 
   constructor(page: Page) {
+    selectors.setTestIdAttribute("data-test")
     this.page = page;
     this.menu = page.getByRole('button', { name: 'Open Menu' })
-    this.logoutBtn = page.locator('[data-test="logout-sidebar-link"]')
+    this.logoutBtn = page.getByTestId("logout-sidebar-link")
   }
   
   async logout(){

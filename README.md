@@ -9,4 +9,6 @@ Website used for playwright automation practice
 * Playwright Typescript
 * Visual Studio Code IDE editor
 * Page Object Model
+* Fixtures
+* Custom getByTestId locators
 * JSON test data

@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { selectors, type Locator, type Page } from '@playwright/test';
 import { IUser } from '../tests/loginData';
 
 export class LoginPage {
@@ -8,10 +8,11 @@ export class LoginPage {
   readonly loginBtn: Locator;
 
   constructor(page: Page) {
+    selectors.setTestIdAttribute("data-test")
     this.page = page;
-    this.username = page.locator('[data-test="username"]');
-    this.password = page.locator('[data-test="password"]');
-    this.loginBtn = page.locator('[data-test="login-button"]');
+    this.username = page.getByTestId("username")
+    this.password = page.getByTestId("password")
+    this.loginBtn = page.getByTestId("login-button")
   }
 
   async goto() {

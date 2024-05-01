@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { selectors, type Locator, type Page } from '@playwright/test';
 
 export class CheckoutInfo {
   readonly page: Page;
@@ -8,11 +8,12 @@ export class CheckoutInfo {
   readonly continueBtn: Locator;
 
   constructor(page: Page) {
+    selectors.setTestIdAttribute("data-test")
     this.page = page;
-    this.firstNameField = page.locator('[data-test="firstName"]');
-    this.lastNameField = page.locator('[data-test="lastName"]');
-    this.postalCodeField = page.locator('[data-test="postalCode"]');
-    this.continueBtn = page.locator('[data-test="continue"]');
+    this.firstNameField = page.getByTestId("firstName")
+    this.lastNameField = page.getByTestId("lastName")
+    this.postalCodeField = page.getByTestId("postalCode")
+    this.continueBtn = page.getByTestId("continue")
   }
   async fillCustomerDetails(firstName: string, lastName: string, postalCode: string ) {
     await this.firstNameField.fill(firstName);

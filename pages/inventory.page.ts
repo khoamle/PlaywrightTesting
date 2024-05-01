@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { selectors, type Locator, type Page } from '@playwright/test';
 
 export class InventoryPage {
   readonly page: Page;
@@ -10,11 +10,12 @@ export class InventoryPage {
   readonly shoppingCart: Locator;
 
   constructor(page: Page) {
+    selectors.setTestIdAttribute("data-test")
     this.page = page;
     this.productsHeader = page.getByText('Products');
-    this.allItems = page.locator("[data-test='inventory-item']")
+    this.allItems = page.getByTestId("inventory-item")
     this.menu = page.getByRole('button', { name: 'Open Menu' })
-    this.shoppingCart = page.locator('[data-test="shopping-cart-link"]');
+    this.shoppingCart = page.getByTestId("shopping-cart-link");
   }
 
   async addItemToCart(item: string){

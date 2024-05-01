@@ -1,6 +1,7 @@
-import { selectors, type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
+import { BasePage } from './base.page';
 
-export class CheckoutInfo {
+export class CheckoutInfo extends BasePage {
   readonly page: Page;
   readonly firstNameField: Locator;
   readonly lastNameField: Locator;
@@ -8,7 +9,7 @@ export class CheckoutInfo {
   readonly continueBtn: Locator;
 
   constructor(page: Page) {
-    selectors.setTestIdAttribute("data-test")
+    super(page);
     this.page = page;
     this.firstNameField = page.getByTestId("firstName")
     this.lastNameField = page.getByTestId("lastName")

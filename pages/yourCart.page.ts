@@ -1,11 +1,12 @@
 import { selectors, type Locator, type Page } from '@playwright/test';
+import { BasePage } from './base.page';
 
-export class YourCartPage {
+export class YourCartPage extends BasePage {
   readonly page: Page;
   readonly checkoutBtn: Locator;
 
   constructor(page: Page) {
-    selectors.setTestIdAttribute("data-test")
+    super(page);
     this.page = page;
     this.checkoutBtn = page.getByTestId("checkout");
   }

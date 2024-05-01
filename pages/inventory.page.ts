@@ -1,6 +1,7 @@
 import { selectors, type Locator, type Page } from '@playwright/test';
+import { BasePage } from './base.page';
 
-export class InventoryPage {
+export class InventoryPage extends BasePage{
   readonly page: Page;
   readonly menu: Locator;
   readonly productsHeader: Locator;
@@ -10,6 +11,7 @@ export class InventoryPage {
   readonly shoppingCart: Locator;
 
   constructor(page: Page) {
+    super(page);
     selectors.setTestIdAttribute("data-test");
     this.page = page;
     this.productsHeader = page.getByText('Products');

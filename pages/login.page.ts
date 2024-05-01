@@ -1,14 +1,15 @@
-import { selectors, type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { IUser } from '../tests/loginData';
+import { BasePage } from './base.page';
 
-export class LoginPage {
+export class LoginPage extends BasePage{
   readonly page: Page;
   readonly username: Locator;
   readonly password: Locator;
   readonly loginBtn: Locator;
 
   constructor(page: Page) {
-    selectors.setTestIdAttribute("data-test")
+    super(page);
     this.page = page;
     this.username = page.getByTestId("username")
     this.password = page.getByTestId("password")

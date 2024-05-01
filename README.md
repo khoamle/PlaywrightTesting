@@ -11,4 +11,5 @@ Website used for playwright automation practice
 * Page Object Model
 * Fixtures
 * Custom getByTestId locators
+* BasePage page object
 * JSON test data

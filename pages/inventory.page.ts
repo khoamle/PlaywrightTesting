@@ -2,7 +2,6 @@ import { selectors, type Locator, type Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class InventoryPage extends BasePage{
-  readonly page: Page;
   readonly menu: Locator;
   readonly productsHeader: Locator;
   readonly backpack = 'Sauce Labs Backpack';
@@ -13,7 +12,6 @@ export class InventoryPage extends BasePage{
   constructor(page: Page) {
     super(page);
     selectors.setTestIdAttribute("data-test");
-    this.page = page;
     this.productsHeader = page.getByText('Products');
     this.allItems = page.getByTestId("inventory-item");
     this.menu = page.getByRole('button', { name: 'Open Menu' });

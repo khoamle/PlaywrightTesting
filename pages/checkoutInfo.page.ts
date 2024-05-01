@@ -2,7 +2,6 @@ import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class CheckoutInfo extends BasePage {
-  readonly page: Page;
   readonly firstNameField: Locator;
   readonly lastNameField: Locator;
   readonly postalCodeField: Locator;
@@ -10,7 +9,6 @@ export class CheckoutInfo extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.page = page;
     this.firstNameField = page.getByTestId("firstName")
     this.lastNameField = page.getByTestId("lastName")
     this.postalCodeField = page.getByTestId("postalCode")

@@ -3,14 +3,12 @@ import { IUser } from '../tests/loginData';
 import { BasePage } from './base.page';
 
 export class LoginPage extends BasePage{
-  readonly page: Page;
   readonly username: Locator;
   readonly password: Locator;
   readonly loginBtn: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.page = page;
     this.username = page.getByTestId("username")
     this.password = page.getByTestId("password")
     this.loginBtn = page.getByTestId("login-button")

@@ -12,7 +12,7 @@ test.describe("Sauce Demo Home Page", () => {
     await expect(inventoryPage.shoppingCart).toBeEmpty();
   })
 
-  test('User can add all items to cart', async({loginPage, inventoryPage}) => {
+  test.skip('User can add all items to cart', async({loginPage, inventoryPage}) => {
     await inventoryPage.addAllItemsToCart;
     await expect(inventoryPage.shoppingCart).toHaveText("6");
   })

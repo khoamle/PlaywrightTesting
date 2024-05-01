@@ -10,11 +10,11 @@ export class InventoryPage {
   readonly shoppingCart: Locator;
 
   constructor(page: Page) {
-    selectors.setTestIdAttribute("data-test")
+    selectors.setTestIdAttribute("data-test");
     this.page = page;
     this.productsHeader = page.getByText('Products');
-    this.allItems = page.getByTestId("inventory-item")
-    this.menu = page.getByRole('button', { name: 'Open Menu' })
+    this.allItems = page.getByTestId("inventory-item");
+    this.menu = page.getByRole('button', { name: 'Open Menu' });
     this.shoppingCart = page.getByTestId("shopping-cart-link");
   }
 
@@ -26,21 +26,21 @@ export class InventoryPage {
 
   async removeItemFromCart(item: string){
     const selectItem = this.allItems.filter({hasText: item});
-    const selectionButton = selectItem.getByRole("button", {name: "Remove"})
-    await selectionButton.click()
+    const selectionButton = selectItem.getByRole("button", {name: "Remove"});
+    await selectionButton.click();
   }
 
   async addAllItemsToCart(page: Page) {
     const rows = await this.allItems.all();
     for (let index = 0; index < rows.length; index++) {
-      await page.getByRole("button", {name: "Add to Cart"}).first().click()
+      await page.getByRole("button", {name: "Add to Cart"}).first().click();
     }
   }
 
   async removeAllItemsFromCart(page: Page) {
     const rows = await this.allItems.all();
     for (let index = 0; index < rows.length; index++) {
-      await page.getByRole("button", {name: "Remove"}).first().click()
+      await page.getByRole("button", {name: "Remove"}).first().click();
     }
   }
 }

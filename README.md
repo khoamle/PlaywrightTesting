@@ -12,4 +12,5 @@ Website used for playwright automation practice
 * Fixtures
 * Custom getByTestId locators
 * BasePage page object
+* Environment variables
 * JSON test data

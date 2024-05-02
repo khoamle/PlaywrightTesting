@@ -8,7 +8,7 @@ const password = process.env.PASSWORD
 export const loginData = {
     standardUser: {
         username: "standard_user" as const,
-        password: password
+        password: String(password)
     },
     lockedOutUser: {
         username: "locked_out_user" as const,

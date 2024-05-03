@@ -12,7 +12,6 @@ test.describe("Sauce Demo Home Page", () => {
     const loginPage = new LoginPage(page);
     const { accountLogin } = testData.standardUser;
     await loginPage.loginToAccount(accountLogin)
-    const inventoryPage = new InventoryPage(page);
   }
   test('User can add one item to shopping cart', async({page}) => {
     await LoginSetup(page);

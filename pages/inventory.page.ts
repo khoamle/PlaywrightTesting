@@ -31,9 +31,8 @@ export class InventoryPage extends BasePage{
   }
 
   async addAllItemsToCart(page: Page) {
-    const rows = await this.allItems.all();
-    for (let index = 0; index < rows.length; index++) {
-      await page.getByRole("button", {name: "Add to Cart"}).first().click();
+    for (const button of await this.allItems.all()){
+      await button.getByRole("button", {name: "Add to cart"}).click();
     }
   }
 

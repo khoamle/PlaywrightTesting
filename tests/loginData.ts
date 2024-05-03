@@ -12,11 +12,11 @@ export const loginData = {
     },
     lockedOutUser: {
         username: "locked_out_user" as const,
-        password: password
+        password: String(password)
     },
     problemUser: {
         username: "problem_user" as const,
-        password: password
+        password: String(password)
     }
 
 }

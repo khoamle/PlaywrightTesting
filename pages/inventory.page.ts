@@ -15,7 +15,7 @@ export class InventoryPage extends BasePage{
     selectors.setTestIdAttribute("data-test");
     this.productsHeader = page.getByText('Products');
     this.allItems = page.getByTestId("inventory-item");
-    this.allItemsNoSetId = page.getByTestId("[data-test='inventory-item']");
+    this.allItemsNoSetId = page.locator("[data-test='inventory-item']");
     this.menu = page.getByRole('button', { name: 'Open Menu' });
     this.shoppingCart = page.getByTestId("shopping-cart-link");
   }

@@ -27,19 +27,19 @@ export class InventoryPage extends BasePage{
   }
 
   async removeItemFromCart(item: string){
-    const selectItem = await this.allItems.filter({hasText: item});
+    const selectItem = await this.allItemsNoSetId.filter({hasText: item});
     const selectionButton = selectItem.getByRole("button", {name: "Remove"});
     await selectionButton.click();
   }
 
   async addAllItemsToCart(page: Page) {
-    for (const button of await this.allItems.all()){
+    for (const button of await this.allItemsNoSetId.all()){
       await button.getByRole("button", {name: "Add to cart"}).click();
     }
   }
 
   async removeAllItemsFromCart(page: Page) {
-    for (const button of await this.allItems.all()){
+    for (const button of await this.allItemsNoSetId.all()){
       await button.getByRole("button", {name: "Remove"}).click();
     }
   }

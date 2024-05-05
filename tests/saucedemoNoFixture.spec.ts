@@ -7,21 +7,20 @@ import { CheckoutInfo } from '../pages/checkoutInfo.page';
 import { CheckoutOverview } from '../pages/checkoutOverview.page';
 import { LogoutPage } from '../pages/logout.page';
 
-test.describe("Sauce Demo Home Page", () => {
-  async function LoginSetup(page: Page) {
-    const loginPage = new LoginPage(page);
+test.beforeEach(async ({ page }) => {
+  const loginPage = new LoginPage(page);
     const { accountLogin } = testData.standardUser;
     await loginPage.loginToAccount(accountLogin)
-  }
+});
+
+test.describe("Sauce Demo Home Page", () => {
   test('User can add one item to shopping cart', async({page}) => {
-    await LoginSetup(page);
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addItemToCart(inventoryPage.backpack);
     await expect(inventoryPage.shoppingCart).toHaveText("1");
   })
 
   test('User can add and remove one item from shopping cart', async({page}) => {
-    await LoginSetup(page);
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addItemToCart(inventoryPage.backpack);
     await inventoryPage.removeItemFromCart(inventoryPage.backpack);
@@ -29,14 +28,12 @@ test.describe("Sauce Demo Home Page", () => {
   })
 
   test('User can add all items to cart', async({page}) => {
-    await LoginSetup(page);
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addAllItemsToCart(page)
     await expect(inventoryPage.shoppingCart).toHaveText("6");
   })
 
   test('User can add all items and remove all items from cart', async({page}) => {
-    await LoginSetup(page);
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addAllItemsToCart(page)
     await inventoryPage.removeAllItemsFromCart(page)
@@ -44,7 +41,6 @@ test.describe("Sauce Demo Home Page", () => {
   })
 
   test('User can add two items and checkout', async({page}) => {
-    await LoginSetup(page);
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addItemToCart(inventoryPage.backpack);
     await inventoryPage.addItemToCart(inventoryPage.bikelight);

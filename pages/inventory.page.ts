@@ -7,6 +7,7 @@ export class InventoryPage extends BasePage{
   readonly backpack = 'Sauce Labs Backpack';
   readonly bikelight = 'Sauce Labs Bike Light';
   readonly allItems: Locator;
+  readonly allItemsNoSetId: Locator;
   readonly shoppingCart: Locator;
 
   constructor(page: Page) {
@@ -14,12 +15,13 @@ export class InventoryPage extends BasePage{
     selectors.setTestIdAttribute("data-test");
     this.productsHeader = page.getByText('Products');
     this.allItems = page.getByTestId("inventory-item");
+    this.allItemsNoSetId = page.getByTestId("[data-test='inventory-item']");
     this.menu = page.getByRole('button', { name: 'Open Menu' });
     this.shoppingCart = page.getByTestId("shopping-cart-link");
   }
 
   async addItemToCart(item: string){
-    const selectItem = await this.allItems.filter({hasText: item});
+    const selectItem = await this.allItemsNoSetId.filter({hasText: item});
     const selectionButton = selectItem.getByRole("button", {name: "Add to Cart"})
     await selectionButton.click()
   }

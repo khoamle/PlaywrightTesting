@@ -36,4 +36,10 @@ export class LoginPage extends BasePage{
     await this.setCredentials(account);
     await this.loginBtn.click();
   }
+  async loginToAccount2(username: string){
+    await this.goto();
+    await this.username.fill(username)
+    await this.password.fill(String(process.env.password))
+    await this.loginBtn.click();
+  }
 }

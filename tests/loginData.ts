@@ -3,20 +3,18 @@ export interface IUser {
     password: string;
 }
 
-const password = process.env.PASSWORD
-
 export const loginData = {
     standardUser: {
         username: "standard_user" as const,
-        password: String(password)
+        password: "secret_sauce"
     },
     lockedOutUser: {
         username: "locked_out_user" as const,
-        password: String(password)
+        password: "secret_sauce"
     },
     problemUser: {
         username: "problem_user" as const,
-        password: String(password)
+        password: "secret_sauce"
     }
 
 }

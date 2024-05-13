@@ -1,30 +1,30 @@
 import { test, expect } from '../pages/fixtures.page';
 
 test.describe("Sauce Demo Home Page", () => {
-  test.skip('User can add one item to shopping cart', async({loginPage, inventoryPage}) => {
+  test('User can add one item to shopping cart', async({loginPage, inventoryPage}) => {
     await inventoryPage.addItemToCart(inventoryPage.backpack);
     await expect(inventoryPage.shoppingCart).toHaveText("1");
   })
 
-  test.skip('User can add and remove one item from shopping cart', async({loginPage, inventoryPage}) => {
+  test('User can add and remove one item from shopping cart', async({loginPage, inventoryPage}) => {
     await inventoryPage.addItemToCart(inventoryPage.backpack);
     await inventoryPage.removeItemFromCart(inventoryPage.backpack);
     await expect(inventoryPage.shoppingCart).toBeEmpty();
   })
 
-  test.skip('User can add all items to cart', async({loginPage, inventoryPage}) => {
+  test('User can add all items to cart', async({loginPage, inventoryPage}) => {
     await inventoryPage.addAllItemsToCart();
     await inventoryPage.shoppingCart.scrollIntoViewIfNeeded()
     await expect(inventoryPage.shoppingCart).toHaveText("6");
   })
 
-  test.skip('User can add all items and remove all items from cart', async({loginPage, inventoryPage}) => {
+  test('User can add all items and remove all items from cart', async({loginPage, inventoryPage}) => {
     await inventoryPage.addAllItemsToCart();
     await inventoryPage.removeAllItemsFromCart();
     await expect(inventoryPage.shoppingCart).toBeEmpty();
   })
 
-  test.skip('User can add two items and checkout', async({loginPage, inventoryPage, yourCartPage, checkoutInfo, checkoutOverview}) => {
+  test('User can add two items and checkout', async({loginPage, inventoryPage, yourCartPage, checkoutInfo, checkoutOverview}) => {
     await inventoryPage.addItemToCart(inventoryPage.backpack);
     await inventoryPage.addItemToCart(inventoryPage.bikelight);
     await inventoryPage.shoppingCart.click();

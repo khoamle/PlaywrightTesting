@@ -8,11 +8,9 @@ import { CheckoutOverview } from '../pages/checkoutOverview.page';
 import { LogoutPage } from '../pages/logout.page';
 
 test.beforeEach(async ({ page }) => {
-  // const loginPage = new LoginPage(page);
-  // const { accountLogin } = testData.standardUser;
-  // await loginPage.loginToAccount(accountLogin)
   const loginPage = new LoginPage(page);
-  await loginPage.loginToAccount2("standard_user", "secret_sauce")
+  const { accountLogin } = testData.standardUser;
+  await loginPage.loginToAccount(accountLogin)
 });
 
 test.describe("Sauce Demo Home Page", () => {

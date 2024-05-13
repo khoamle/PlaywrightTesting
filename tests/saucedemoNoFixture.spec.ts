@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
   // const { accountLogin } = testData.standardUser;
   // await loginPage.loginToAccount(accountLogin)
   const loginPage = new LoginPage(page);
-  await loginPage.loginToAccount2("standard_user")
+  await loginPage.loginToAccount2("standard_user", "secret_sauce")
 });
 
 test.describe("Sauce Demo Home Page", () => {

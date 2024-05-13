@@ -29,14 +29,15 @@ test.describe("Sauce Demo Home Page", () => {
 
   test('User can add all items to cart', async({page}) => {
     const inventoryPage = new InventoryPage(page);
-    await inventoryPage.addAllItemsToCart(page)
-    await expect(inventoryPage.shoppingCart).toHaveText("6");
+    await inventoryPage.addAllItemsToCart();
+    await inventoryPage.shoppingCart.scrollIntoViewIfNeeded()
+    await expect(inventoryPage.shoppingCart).toHaveText('6');
   })
 
   test('User can add all items and remove all items from cart', async({page}) => {
     const inventoryPage = new InventoryPage(page);
-    await inventoryPage.addAllItemsToCart(page)
-    await inventoryPage.removeAllItemsFromCart(page)
+    await inventoryPage.addAllItemsToCart();
+    await inventoryPage.removeAllItemsFromCart();
     await expect(inventoryPage.shoppingCart).toBeEmpty();
   })
 

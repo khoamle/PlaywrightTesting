@@ -15,7 +15,6 @@ export class InventoryPage extends BasePage{
     selectors.setTestIdAttribute("data-test");
     this.productsHeader = page.getByText('Products');
     this.allItems = page.getByTestId("inventory-item");
-    this.allItemsNoSetId = page.locator("[data-test='inventory-item']");
     this.menu = page.getByRole('button', { name: 'Open Menu' });
     this.shoppingCart = page.getByTestId("shopping-cart-link");
   }
@@ -32,15 +31,15 @@ export class InventoryPage extends BasePage{
     await selectionButton.click();
   }
 
-  async addAllItemsToCart(page: Page) {
-    for (const button of await this.allItemsNoSetId.all()){
-      await button.getByRole("button", {name: "Add to cart"}).click();
+  async addAllItemsToCart() {
+    for (const item of await this.allItems.all()){
+      await item.getByRole("button", {name: "Add to cart"}).click();
     }
   }
 
-  async removeAllItemsFromCart(page: Page) {
-    for (const button of await this.allItemsNoSetId.all()){
-      await button.getByRole("button", {name: "Remove"}).click();
+  async removeAllItemsFromCart() {
+    for (const item of await this.allItems.all()){
+      await item.getByRole("button", {name: "Remove"}).click();
     }
   }
 }

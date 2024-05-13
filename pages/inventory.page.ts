@@ -20,9 +20,7 @@ export class InventoryPage extends BasePage{
   }
 
   async addItemToCart(item: string){
-    const selectItem = await this.allItems.filter({hasText: item});
-    const selectionButton = await selectItem.getByRole("button", {name: "Add to Cart"})
-    await selectionButton.click()
+    await this.allItems.filter({hasText: item}).getByRole("button", {name: "Add to Cart"}).click();
   }
 
   async removeItemFromCart(item: string){

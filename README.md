@@ -14,3 +14,4 @@ Website used for playwright automation practice
 * BasePage page object
 * Environment variables
 * JSON test data
+* Gherkin step definitions

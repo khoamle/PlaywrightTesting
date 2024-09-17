@@ -15,3 +15,4 @@ Website used for playwright automation practice
 * Environment variables
 * JSON test data
 * Gherkin step definitions
+* Sharing Authentication State
